@@ -5,10 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Карточки с контентом</title>
-    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <style>
+        .spider-man {
+            width: 50%;
+        }
+    </style>
     <card-component>
         <div slot="header">
             <h2>Заголовок карточки 1</h2>
@@ -18,32 +22,49 @@
         </div>
     </card-component>
     <card-component>
-
         <div slot="header">
             <h2>Заголовок карточки 2</h2>
         </div>
         <div slot="content">
             <p>Текстовое содержание карточки 2</p>
-            <img src="./image/spider-man.jpeg" alt="Изображение карточки 2">
+            <img class="spider-man" src="./image/spider-man.jpeg" alt="Изображение карточки 2">
         </div>
     </card-component>
-
 
     <script>
         customElements.define("card-component", class extends HTMLElement {
             connectedCallback() {
                 this.attachShadow({ mode: 'open' });
                 this.shadowRoot.innerHTML = `
-               
-        <div>
-            <div id="header">
-                <slot name="header"></slot>
-            </div>
-            <div id="content">
-                <slot name="content"></slot>
-            </div>
-        </div>
-    `
+                    <style>
+                        :host {
+                            display: flex;
+                            flex-direction: column;
+                            border: 1px solid #ccc;
+                            border-radius: 5px;
+                            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                            margin: 10px;
+                        }
+
+                        #header {
+                            padding: 10px;
+                            background-color: #f0f0f0;
+                        }
+
+                        #content  {
+                            color: #666;
+                            padding: 10px;
+                        }        
+                    </style>
+                    <div>
+                        <div id="header">
+                            <slot name="header"></slot>
+                        </div>
+                        <div id="content">
+                            <slot name="content"></slot>
+                        </div>
+                    </div>
+                `;
             }
         });
     </script>
