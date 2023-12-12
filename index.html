@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карточки с контентом</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <card-component>
+        <div slot="header">
+            <h2>Заголовок карточки 1</h2>
+        </div>
+        <div slot="content">
+            <p>Текстовое содержание карточки 1</p>
+        </div>
+    </card-component>
+    <card-component>
+        <div slot="header">
+            <h2>Заголовок карточки 2</h2>
+        </div>
+        <div slot="content">
+            <p>Текстовое содержание карточки 2</p>
+            <img src="./image/spider-man.jpeg" alt="Изображение карточки 2">
+        </div>
+    </card-component>
+
+    <template id="card-template">
+        <div>
+            <div id="header">
+                <slot name="header"></slot>
+            </div>
+            <div id="content">
+                <slot name="content"></slot>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        customElements.define(
+            "card-component",
+            class extends HTMLElement {
+                constructor() {
+                    super();
+                    let template = document.getElementById("card-template");
+                    let templateContent = template.content;
+
+                    const shadowRoot = this.attachShadow({ mode: "open" });
+                    shadowRoot.appendChild(templateContent.cloneNode(true));
+                }
+            },
+        );
+    </script>
+</body>
+
+</html>
